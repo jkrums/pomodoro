@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8fafc;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    max-width: 400px;
+    width: 90%;
+}
+
+.timer {
+    font-size: 6rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    color: #1e293b;
+    font-variant-numeric: tabular-nums;
+}
+
+.controls button {
+    font-size: 0.875rem;
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background-color: #8b5cf6;
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.controls button:hover {
+    background-color: #7c3aed;
+    transform: translateY(-1px);
+}
+
+.mode button {
+    font-size: 0.875rem;
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+#pause {
+    background-color: #f43f5e;
+}
+
+#pause:hover {
+    background-color: #e11d48;
+}
+
+.work-mode {
+    background-color: #f97316; /* Orange */
+    color: white;
+}
+
+.work-mode:hover {
+    background-color: #ea580c; /* Darker Orange */
+}
+
+.work-mode.active {
+    background-color: #c2410c; /* Even Darker Orange */
+}
+
+.break-mode {
+    background-color: #22c55e; /* Green */
+    color: white;
+}
+
+.break-mode:hover {
+    background-color: #16a34a; /* Darker Green */
+}
+
+.break-mode.active {
+    background-color: #15803d; /* Even Darker Green */
+}
+
+.hidden {
+    display: none;
+}
+
+.reset-container {
+    margin-top: 1rem;
+}
+
+.reset-container button {
+    width: 100%;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background-color: #94a3b8;  /* Slate color */
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.reset-container button:hover {
+    background-color: #64748b;  /* Darker slate */
+    transform: translateY(-1px);
+} 
