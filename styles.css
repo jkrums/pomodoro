@@ -39,14 +39,14 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 12px;
-    background-color: #8b5cf6;
+    background: linear-gradient(135deg, #9f7aea, #8b5cf6);
     color: white;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .controls button:hover {
-    background-color: #7c3aed;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     transform: translateY(-1px);
 }
 
@@ -62,37 +62,37 @@ body {
 }
 
 #pause {
-    background-color: #f43f5e;
+    background: linear-gradient(135deg, #f87171, #f43f5e);
 }
 
 #pause:hover {
-    background-color: #e11d48;
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
 }
 
 .work-mode {
-    background-color: #f97316; /* Orange */
+    background: linear-gradient(135deg, #fb923c, #f97316); /* Orange gradient */
     color: white;
 }
 
 .work-mode:hover {
-    background-color: #ea580c; /* Darker Orange */
+    background: linear-gradient(135deg, #f97316, #ea580c);
 }
 
 .work-mode.active {
-    background-color: #c2410c; /* Even Darker Orange */
+    background: linear-gradient(135deg, #ea580c, #c2410c);
 }
 
 .break-mode {
-    background-color: #22c55e; /* Green */
+    background: linear-gradient(135deg, #34d399, #22c55e); /* Green gradient */
     color: white;
 }
 
 .break-mode:hover {
-    background-color: #16a34a; /* Darker Green */
+    background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 
 .break-mode.active {
-    background-color: #15803d; /* Even Darker Green */
+    background: linear-gradient(135deg, #16a34a, #15803d);
 }
 
 .hidden {
@@ -110,13 +110,13 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 12px;
-    background-color: #94a3b8;  /* Slate color */
+    background: linear-gradient(135deg, #cbd5e1, #94a3b8);  /* Slate gradient */
     color: white;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .reset-container button:hover {
-    background-color: #64748b;  /* Darker slate */
+    background: linear-gradient(135deg, #94a3b8, #64748b);
     transform: translateY(-1px);
 } 
