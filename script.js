@@ -1,77 +1,122 @@
-let timeLeft;
-let timerId = null;
-let isWorkMode = true;
-
-const minutesDisplay = document.getElementById('minutes');
-const secondsDisplay = document.getElementById('seconds');
-const startButton = document.getElementById('start');
+const timer = document.getElementById('timer');
 const pauseButton = document.getElementById('pause');
+const workButton = document.querySelector('.work-mode');
+const breakButton = document.querySelector('.break-mode');
 const resetButton = document.getElementById('reset');
-const workButton = document.getElementById('work');
-const breakButton = document.getElementById('break');
+const progressRing = document.querySelector('.progress-ring-circle');
+const themeToggle = document.getElementById('theme-switch');
 
-const WORK_TIME = 25 * 60; // 25 minutes in seconds
-const BREAK_TIME = 5 * 60; // 5 minutes in seconds
+const RADIUS = 120;
+const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function updateDisplay() {
+let workTime = 25 * 60; // 25 minutes in seconds
+let breakTime = 5 * 60; // 5 minutes in seconds
+let timeLeft = workTime;
+let isRunning = false;
+let isPaused = false;
+let isWorkMode = true;
+let countdown;
+
+// Initialize progress ring
+progressRing.style.strokeDasharray = `${CIRCLE_CIRCUMFERENCE} ${CIRCLE_CIRCUMFERENCE}`;
+progressRing.style.strokeDashoffset = CIRCLE_CIRCUMFERENCE;
+
+console.log('Pause button found:', pauseButton); // Should not be null
+
+function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    minutesDisplay.textContent = minutes.toString().padStart(2, '0');
-    secondsDisplay.textContent = seconds.toString().padStart(2, '0');
+    const displayTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    timer.textContent = displayTime;
+    document.title = `${displayTime} - Pomodoro Timer`;
+    
+    // Update progress ring
+    const totalTime = isWorkMode ? workTime : breakTime;
+    const progress = 1 - (timeLeft / totalTime);
+    const offset = CIRCLE_CIRCUMFERENCE - (progress * CIRCLE_CIRCUMFERENCE);
+    progressRing.style.strokeDashoffset = offset;
 }
 
 function startTimer() {
-    if (timerId !== null) return;
-    
-    if (!timeLeft) {
-        timeLeft = isWorkMode ? WORK_TIME : BREAK_TIME;
+    if (!isRunning) {
+        isRunning = true;
+        isPaused = false;
+        countdown = setInterval(() => {
+            timeLeft--;
+            updateTimer();
+            if (timeLeft === 0) {
+                clearInterval(countdown);
+                isRunning = false;
+                timeLeft = isWorkMode ? breakTime : workTime;
+                isWorkMode = !isWorkMode;
+                updateTimer();
+            }
+        }, 1000);
+        pauseButton.textContent = 'Pause';
     }
-    
-    timerId = setInterval(() => {
-        timeLeft--;
-        updateDisplay();
-        
-        if (timeLeft === 0) {
-            clearInterval(timerId);
-            timerId = null;
-            alert(isWorkMode ? 'Work time is over! Take a break!' : 'Break is over! Time to work!');
-            isWorkMode = !isWorkMode;
-            timeLeft = isWorkMode ? WORK_TIME : BREAK_TIME;
-            updateDisplay();
-        }
-    }, 1000);
 }
 
 function pauseTimer() {
-    clearInterval(timerId);
-    timerId = null;
+    if (isRunning) {
+        clearInterval(countdown);
+        isRunning = false;
+        isPaused = true;
+        pauseButton.textContent = 'Resume';
+    } else if (isPaused) {
+        startTimer();
+    } else {
+        startTimer();
+    }
 }
 
 function resetTimer() {
-    clearInterval(timerId);
-    timerId = null;
-    timeLeft = isWorkMode ? WORK_TIME : BREAK_TIME;
-    updateDisplay();
-    document.title = 'Pomodoro Timer';
+    clearInterval(countdown);
+    timeLeft = isWorkMode ? workTime : breakTime;
+    isRunning = false;
+    isPaused = false;
+    updateTimer();
+    pauseButton.textContent = 'Start';
 }
 
-function switchMode(mode) {
-    isWorkMode = mode === 'work';
-    workButton.classList.toggle('active', isWorkMode);
-    breakButton.classList.toggle('active', !isWorkMode);
-    clearInterval(timerId);
-    timerId = null;
-    timeLeft = isWorkMode ? WORK_TIME : BREAK_TIME;
-    updateDisplay();
+function setWorkMode() {
+    isWorkMode = true;
+    timeLeft = workTime;
+    resetTimer();
+    workButton.classList.add('active');
+    breakButton.classList.remove('active');
 }
 
-// Initialize
-timeLeft = WORK_TIME;
-updateDisplay();
+function setBreakMode() {
+    isWorkMode = false;
+    timeLeft = breakTime;
+    resetTimer();
+    breakButton.classList.add('active');
+    workButton.classList.remove('active');
+}
 
-// Event listeners
-startButton.addEventListener('click', startTimer);
+// Event Listeners
 pauseButton.addEventListener('click', pauseTimer);
 resetButton.addEventListener('click', resetTimer);
-workButton.addEventListener('click', () => switchMode('work'));
-breakButton.addEventListener('click', () => switchMode('break')); 
+workButton.addEventListener('click', setWorkMode);
+breakButton.addEventListener('click', setBreakMode);
+
+// Theme toggle functionality
+themeToggle.addEventListener('click', () => {
+    document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    themeToggle.innerHTML = document.body.dataset.theme === 'dark' ? 
+        '<i class="fas fa-sun"></i>' : 
+        '<i class="fas fa-moon"></i>';
+    localStorage.setItem('theme', document.body.dataset.theme);
+});
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.body.dataset.theme = savedTheme;
+themeToggle.innerHTML = savedTheme === 'dark' ? 
+    '<i class="fas fa-sun"></i>' : 
+    '<i class="fas fa-moon"></i>';
+
+// Initial setup
+updateTimer();
+workButton.classList.add('active'); 

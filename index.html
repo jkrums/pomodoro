@@ -8,14 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Pomodoro Timer</h1>
-        <div class="timer">
-            <span id="minutes">25</span>:<span id="seconds">00</span>
+    <div class="theme-toggle">
+        <button id="theme-switch" title="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    
+    <div class="timer-container">
+        <div class="progress-ring">
+            <svg class="progress" width="300" height="300">
+                <circle class="progress-ring-bg" cx="150" cy="150" r="120" />
+                <circle class="progress-ring-circle" cx="150" cy="150" r="120" />
+            </svg>
+            <div class="timer-display">
+                <span id="timer">25:00</span>
+            </div>
         </div>
         <div class="controls">
-            <button id="start">Start</button>
-            <button id="pause">Pause</button>
+            <button id="pause">Start</button>
             <button id="reset" class="hidden">Reset</button>
         </div>
         <div class="mode">

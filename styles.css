@@ -4,13 +4,29 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --primary-color: #8b5cf6;
+    --ring-color: #8b5cf6;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --primary-color: #9f7aea;
+    --ring-color: #9f7aea;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f8fafc;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .container {
@@ -124,4 +140,70 @@ body {
 .reset-container button:hover {
     background: linear-gradient(135deg, #94a3b8, #64748b);
     transform: rotate(180deg);
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.theme-toggle button:hover {
+    transform: rotate(45deg);
+}
+
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.progress-ring {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.progress {
+    transform: rotate(-90deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 12px;
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke: var(--ring-color);
+    stroke-width: 12px;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s;
+}
+
+.timer-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#timer {
+    font-size: 3.5rem;
+    font-weight: bold;
 } 
