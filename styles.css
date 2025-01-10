@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    touch-action: manipulation;
 }
 
 :root {
@@ -31,7 +32,7 @@ body {
 
 .container {
     text-align: center;
-    background-color: white;
+    background-color: var(--bg-color);
     padding: 3rem;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
@@ -144,8 +145,8 @@ body {
 
 .theme-toggle {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: max(1rem, env(safe-area-inset-top));
+    right: max(1rem, env(safe-area-inset-right));
 }
 
 .theme-toggle button {
@@ -266,6 +267,30 @@ body {
         top: 0.5rem;
         right: 0.5rem;
     }
+
+    .controls button,
+    .mode button {
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+    }
+    
+    .reset-container button {
+        height: 44px;
+        width: 44px;
+    }
+    
+    .theme-toggle button {
+        padding: 0.75rem;
+    }
+
+    .progress-ring-circle {
+        transition: stroke-dashoffset 0.1s;
+    }
+    
+    .progress-ring {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
 }
 
 @media screen and (max-width: 360px) {
@@ -289,5 +314,12 @@ body {
 
     #timer {
         font-size: 2.2rem;
+    }
+}
+
+@supports (padding: max(0px)) {
+    .timer-container {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
     }
 } 

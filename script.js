@@ -39,10 +39,14 @@ function updateTimer() {
     document.title = `${displayTime} - Pomodoro Timer`;
     
     // Update progress ring
-    const totalTime = isWorkMode ? workTime : breakTime;
-    const progress = 1 - (timeLeft / totalTime);
-    const offset = CIRCLE_CIRCUMFERENCE - (progress * CIRCLE_CIRCUMFERENCE);
-    progressRing.style.strokeDashoffset = offset;
+    try {
+        const totalTime = isWorkMode ? workTime : breakTime;
+        const progress = 1 - (timeLeft / totalTime);
+        const offset = CIRCLE_CIRCUMFERENCE - (progress * CIRCLE_CIRCUMFERENCE);
+        progressRing.style.strokeDashoffset = offset;
+    } catch (error) {
+        console.error('Error updating progress ring:', error);
+    }
 }
 
 function startTimer() {
