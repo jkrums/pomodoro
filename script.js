@@ -6,8 +6,15 @@ const resetButton = document.getElementById('reset');
 const progressRing = document.querySelector('.progress-ring-circle');
 const themeToggle = document.getElementById('theme-switch');
 
-const RADIUS = 120;
-const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+// Update the RADIUS calculation based on screen size
+function getRadius() {
+    if (window.innerWidth <= 360) return 80;
+    if (window.innerWidth <= 768) return 100;
+    return 120;
+}
+
+let RADIUS = getRadius();
+let CIRCLE_CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 let workTime = 25 * 60; // 25 minutes in seconds
 let breakTime = 5 * 60; // 5 minutes in seconds
@@ -116,6 +123,14 @@ document.body.dataset.theme = savedTheme;
 themeToggle.innerHTML = savedTheme === 'dark' ? 
     '<i class="fas fa-sun"></i>' : 
     '<i class="fas fa-moon"></i>';
+
+// Add this event listener to update values on resize
+window.addEventListener('resize', () => {
+    RADIUS = getRadius();
+    CIRCLE_CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+    progressRing.style.strokeDasharray = `${CIRCLE_CIRCUMFERENCE} ${CIRCLE_CIRCUMFERENCE}`;
+    updateTimer(); // This will update the progress ring with the new measurements
+});
 
 // Initial setup
 updateTimer();
