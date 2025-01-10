@@ -101,22 +101,27 @@ body {
 
 .reset-container {
     margin-top: 1rem;
+    text-align: center;
 }
 
 .reset-container button {
-    width: 100%;
-    font-size: 0.875rem;
-    padding: 0.75rem 1.5rem;
+    width: auto;
+    font-size: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #cbd5e1, #94a3b8);  /* Slate gradient */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #cbd5e1, #94a3b8);
     color: white;
-    font-weight: 500;
     transition: all 0.2s ease;
+    height: 2.5rem;
+    width: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .reset-container button:hover {
     background: linear-gradient(135deg, #94a3b8, #64748b);
-    transform: translateY(-1px);
+    transform: rotate(180deg);
 } 
