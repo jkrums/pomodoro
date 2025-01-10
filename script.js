@@ -52,6 +52,7 @@ function resetTimer() {
     timerId = null;
     timeLeft = isWorkMode ? WORK_TIME : BREAK_TIME;
     updateDisplay();
+    document.title = 'Pomodoro Timer';
 }
 
 function switchMode(mode) {
